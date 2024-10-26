@@ -1,5 +1,5 @@
-import { handlePrice } from '../../utils/utils';
-import { Component } from '../base/comp';
+import { handlePrice } from "../../utils/utils";
+import { Component } from "../base/comp";
 
 interface ISuccessActions {
   onClick: (event: MouseEvent) => void;
@@ -25,12 +25,15 @@ export class Success extends Component<ISuccess> {
 
     if (actions?.onClick) {
       if (this._button) {
-        this._button.addEventListener('click', actions.onClick)
+        this._button.addEventListener("click", actions.onClick);
       }
     }
   }
 
   set description(value: number) {
-    this._description.textContent = 'Списано ' + handlePrice(value) + ' синапсов'
+    this.setText(
+      this._description,
+      "Списано " + handlePrice(value) + " синапсов"
+    );
   }
 }

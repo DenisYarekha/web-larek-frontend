@@ -35,14 +35,14 @@ export class Form<T> extends Component<IFormState> {
   }
 
   protected onInputChange(field: keyof T, value: string) {
-    this.events.emit("orderInput:change", {
+    this.events.emit(`${this.container.name}.${String(field)}:change`, {
       field,
       value,
     });
   }
   // Сеттер состояния кнопки
   set valid(value: boolean) {
-    this._submit.disabled = !value;
+    this.setDisabled(this._submit, !value);
   }
 
   set errors(value: string) {

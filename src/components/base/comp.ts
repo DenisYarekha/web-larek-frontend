@@ -2,7 +2,7 @@ export abstract class Component<T> {
   protected constructor(protected readonly container: HTMLElement) {}
 
   // toggle Модального окна
-  toggleModal(el: HTMLElement, className: string, force?: boolean): void {
+  toggleClass(el: HTMLElement, className: string, force?: boolean): void {
     el.classList.toggle(className, force);
   }
 

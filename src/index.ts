@@ -168,9 +168,14 @@ events.on('contactsFormErrors:change', (errors: Partial<IOrderForm>) => {
 });
 
 // Изменились введенные данные
-events.on('orderInput:change', (data: { field: keyof IOrderForm, value: string }) => {
+events.on(/^order\..*:change/, (data: { field: keyof IOrderForm, value: string }) => {
   appData.setOrderField(data.field, data.value);
 });
+
+events.on(/^contacts\..*:change/, (data: { field: keyof IOrderForm, value: string }) => {
+  appData.setOrderField(data.field, data.value);
+});
+
 
 // Заполнить телефон и почту
 events.on('order:submit', () => {
@@ -197,9 +202,12 @@ events.on('contacts:submit', () => {
       page.counter = 0;
       appData.resetSelected();
     })
-    .catch((err) => {
-      console.log(err)
-    })
+    // .catch(console.error)
+    .catch((err) => { 
+
+      console.log(err) 
+
+    }) 
 })
 
 // Окно успешной покупки
@@ -214,5 +222,5 @@ events.on('order:success', (res: ApiListResponse<string>) => {
 // Закрытие модального окна
 events.on('modal:close', () => {
   page.locked = false;
-  appData.refreshOrder();
+  // appData.refreshOrder();
 });

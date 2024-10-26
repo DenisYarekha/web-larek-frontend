@@ -34,28 +34,32 @@ export class Basket extends Component<IBasket> {
     }
   }
 
+  toggleButton(state: boolean) {
+    this.setDisabled(this._button, state);
+  }
+
   // Сеттер для цены
   set price(price: number) {
-    this._price.textContent = handlePrice(price) + " синапсов";
+    this.setText(this._price, handlePrice(price) + " синапсов");
   }
 
   // Сеттер для списка товаров
   set list(items: HTMLElement[]) {
     this._list.replaceChildren(...items);
-    this._button.disabled = items.length ? false : true;
+    this.toggleButton(items.length === 0);
   }
 
   disableButton() {
-    this._button.disabled = true;
+    this.setDisabled(this._button, true);
   }
 
   // Обновление индексов таблички при удалении товара из корзины
   refreshIndices() {
-    Array.from(this._list.children).forEach(
-      (item, index) =>
-        (item.querySelector(`.basket__item-index`)!.textContent = (
-          index + 1
-        ).toString())
+    Array.from(this._list.children).forEach((item, index) =>
+      this.setText(
+        item.querySelector(`.basket__item-index`)!,
+        (index + 1).toString()
+      )
     );
   }
 }
@@ -96,14 +100,14 @@ export class StoreItemBasket extends Component<IProductBasket> {
   }
 
   set title(value: string) {
-    this._title.textContent = value;
+    this.setText(this._title, value);
   }
 
   set index(value: number) {
-    this._index.textContent = value.toString();
+    this.setText(this._index, value.toString());
   }
 
   set price(value: number) {
-    this._price.textContent = handlePrice(value) + " синапсов";
+    this.setText(this._price, handlePrice(value) + " синапсов");
   }
 }

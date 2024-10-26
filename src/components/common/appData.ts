@@ -133,9 +133,19 @@ export class AppState extends Model<IAppState> {
     const errors: typeof this.formErrors = {};
     if (!this.order.email) {
       errors.email = "Необходимо указать email";
+    } else if (
+      !/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/.test(this.order.email)
+    ) {
+      errors.email = "Укажите корректный email";
     }
     if (!this.order.phone) {
       errors.phone = "Необходимо указать телефон";
+    } else if (
+      !/^\+?\d{1,3}?[-. (]*\d{1,4}?[-. )]*\d{1,4}[-. ]*\d{1,9}$/.test(
+        this.order.phone
+      )
+    ) {
+      errors.phone = "Укажите корректный телефон";
     }
     this.formErrors = errors;
     this.events.emit("contactsFormErrors:change", this.formErrors);

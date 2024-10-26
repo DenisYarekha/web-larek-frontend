@@ -1,5 +1,5 @@
-import { IEvents } from '../base/events';
-import { Form } from '../common/form';
+import { IEvents } from "../base/events";
+import { Form } from "../common/form";
 
 // Интерфейс, описывающий форму заказа
 export interface IOrder {
@@ -12,6 +12,14 @@ export class Order extends Form<IOrder> {
   protected _card: HTMLButtonElement;
   protected _cash: HTMLButtonElement;
 
+  toggleCard(state: boolean = true) {
+    this.toggleClass(this._card, "button_alt-active", state);
+  }
+
+  toggleCash(state: boolean = true) {
+    this.toggleClass(this._cash, "button_alt-active", state);
+  }
+
   constructor(
     protected blockName: string,
     container: HTMLFormElement,
@@ -19,27 +27,27 @@ export class Order extends Form<IOrder> {
   ) {
     super(container, events);
 
-    this._card = container.elements.namedItem('card') as HTMLButtonElement;
-    this._cash = container.elements.namedItem('cash') as HTMLButtonElement;
+    this._card = container.elements.namedItem("card") as HTMLButtonElement;
+    this._cash = container.elements.namedItem("cash") as HTMLButtonElement;
 
     if (this._cash) {
-      this._cash.addEventListener('click', () => {
-        this._cash.classList.add('button_alt-active')
-        this._card.classList.remove('button_alt-active')
-        this.onInputChange('payment', 'cash')
-      })
+      this._cash.addEventListener("click", () => {
+        this.toggleCard(false);
+        this.toggleCash();
+        this.onInputChange("payment", "cash");
+      });
     }
     if (this._card) {
-      this._card.addEventListener('click', () => {
-        this._card.classList.add('button_alt-active')
-        this._cash.classList.remove('button_alt-active')
-        this.onInputChange('payment', 'card')
-      })
+      this._card.addEventListener("click", () => {
+        this.toggleCard();
+        this.toggleCash(false);
+        this.onInputChange("payment", "card");
+      });
     }
   }
 
   disableButtons() {
-    this._cash.classList.remove('button_alt-active')
-    this._card.classList.remove('button_alt-active')
+    this.toggleClass(this._card, "button_alt-active", false);
+    this.toggleClass(this._cash, "button_alt-active", false);
   }
 }
