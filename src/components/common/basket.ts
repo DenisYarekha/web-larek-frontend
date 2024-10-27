@@ -49,10 +49,6 @@ export class Basket extends Component<IBasket> {
     this.toggleButton(items.length === 0);
   }
 
-  disableButton() {
-    this.setDisabled(this._button, true);
-  }
-
   // Обновление индексов таблички при удалении товара из корзины
   refreshIndices() {
     Array.from(this._list.children).forEach((item, index) =>

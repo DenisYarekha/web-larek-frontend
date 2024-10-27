@@ -8,27 +8,29 @@ export interface IContacts {
 }
 
 export class Contacts extends Form<IContacts> {
+  private phoneInput: HTMLInputElement | null;
+  private emailInput: HTMLInputElement | null;
   constructor(container: HTMLFormElement, events: IEvents) {
     super(container, events);
+    this.phoneInput = this.container.querySelector<HTMLInputElement>(
+      'input[name="phone"]'
+    );
+    this.emailInput = this.container.querySelector<HTMLInputElement>(
+      'input[name="email"]'
+    );
   }
 
   //Сеттер для телефона
   set phone(value: string) {
-    const phoneInput = this.container.querySelector<HTMLInputElement>(
-      'input[name="phone"]'
-    );
-    if (phoneInput) {
-      phoneInput.value = value;
+    if (this.phoneInput) {
+      this.phoneInput.value = value;
     }
   }
 
   //Сеттер для email
   set email(value: string) {
-    const emailInput = this.container.querySelector<HTMLInputElement>(
-      'input[name="email"]'
-    );
-    if (emailInput) {
-      emailInput.value = value;
+    if (this.emailInput) {
+      this.emailInput.value = value;
     }
   }
 }

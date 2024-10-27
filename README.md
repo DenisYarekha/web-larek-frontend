@@ -330,7 +330,7 @@ export class Basket extends Component<IBasket> {
   set list(items: HTMLElement[]);
 
   // Метод отключающий кнопку "Оформить"
-  disableButton(): void;
+  toggleButton(): void;
 
   // Метод для обновления индексов таблички при удалении товара из корзины
   refreshIndices(): void;

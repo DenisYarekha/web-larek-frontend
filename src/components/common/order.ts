@@ -47,7 +47,7 @@ export class Order extends Form<IOrder> {
   }
 
   disableButtons() {
-    this.toggleClass(this._card, "button_alt-active", false);
-    this.toggleClass(this._cash, "button_alt-active", false);
+    this.toggleCard(false);
+    this.toggleCash(false);
   }
 }
